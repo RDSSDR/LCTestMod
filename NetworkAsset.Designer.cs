@@ -63,9 +63,9 @@ namespace LCTestMod {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] assets {
+        internal static byte[] asset {
             get {
-                object obj = ResourceManager.GetObject("assets", resourceCulture);
+                object obj = ResourceManager.GetObject("asset", resourceCulture);
                 return ((byte[])(obj));
             }
         }

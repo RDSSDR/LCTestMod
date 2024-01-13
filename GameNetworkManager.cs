@@ -35,7 +35,6 @@ namespace LCTestMod
                 networkHandlerHost.GetComponent<NetworkObject>().Spawn();
 
             }
-
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(RoundManager), nameof(RoundManager.GenerateNewFloor))]

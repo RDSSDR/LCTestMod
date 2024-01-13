@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace LCTestMod
@@ -47,9 +48,12 @@ namespace LCTestMod
             UnityEngine.Object.DontDestroyOnLoad(gameObject);
             gameObject.hideFlags = HideFlags.HideAndDontSave;
             gameObject.AddComponent<GUILoader>();
+            gameObject.AddComponent<NetworkHandler>();
+            gameObject.AddComponent<NetworkObject>();
             myGUI = (GUILoader)gameObject.GetComponent("GUILoader");
 
-            MainAssetBundle = AssetBundle.LoadFromMemory(NetworkAsset.assets);
+
+            MainAssetBundle = AssetBundle.LoadFromMemory(NetworkAsset.asset);
 
             NetcodePatcher();
 

@@ -13,8 +13,6 @@ namespace LCTestMod
 
         public static event Action<String> TestEvent;
 
-
-
         public override void OnNetworkSpawn()
         {
             TestEvent = null;
@@ -32,8 +30,14 @@ namespace LCTestMod
         public void EventClientRpc(string eventName)
         {
             //TestEvent?.Invoke(eventName);
-
-            TestModBase.Instance.mls.LogInfo(eventName);
+            if (TestModBase.Instance != null)
+            {
+                TestModBase.Instance.mls.LogInfo(eventName);
+            }
+            else
+            {
+                Debug.Log("no testmod instance");
+            }
         }
 
         [ServerRpc(RequireOwnership = false)]

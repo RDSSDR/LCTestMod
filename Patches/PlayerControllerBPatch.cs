@@ -253,7 +253,14 @@ namespace LCTestMod.Patches
             if (!foundFunny)
             {
                 //Landmine.SpawnExplosion(StartOfRound.Instance.localPlayerController.transform.position, true);
-                NetworkHandler.Instance.EventServerRpc("hello world!");
+                if (NetworkHandler.Instance != null)
+                {
+                    NetworkHandler.Instance.EventServerRpc("hello world!");
+                }
+                else
+                {
+                    TestModBase.Instance.mls.LogInfo("no instance");
+                }
             }
         }
 
