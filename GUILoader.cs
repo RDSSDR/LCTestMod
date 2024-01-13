@@ -165,6 +165,7 @@ namespace LCTestMod.Component
                 return;
             }
 
+
             if (isMenuOpen)
             {
                 Cursor.visible = true;
@@ -172,14 +173,17 @@ namespace LCTestMod.Component
                 StartOfRound.Instance.localPlayerController.disableLookInput = true;
             }
 
-            if (openCloseMenu.IsDown())
+            //if (openCloseMenu.IsDown())
+            if (UnityInput.Current.GetKeyDown(KeyCode.F1))
             {
+                TestModBase.Instance.mls.LogInfo("blah");
                 if (!wasKeyDown)
                 {
                     wasKeyDown = true;
                 }
             }
-            if (openCloseMenu.IsUp())
+            //if (openCloseMenu.IsUp())
+            if (UnityInput.Current.GetKeyUp(KeyCode.F1))
             {
                 if (wasKeyDown)
                 {

@@ -16,7 +16,6 @@
         <PackageReference Include="UnityEngine.Modules" Version="2022.3.9" IncludeAssets="compile" />
 	    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.1" PrivateAssets="all" />
 		<PackageReference Include="Evaisa.NetcodePatcher.MSBuild" Version="3.*" PrivateAssets="all" />
-		<PackageReference Include="Evaisa.LethalLib" Version="0.*" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
@@ -40,7 +39,7 @@
       <Reference Include="Unity.Animation.Rigging">
         <HintPath>..\..\..\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Animation.Rigging.dll</HintPath>
       </Reference>
-      <Reference Include="Unity.Netcode.Runtime">
+      <Reference Include="Unity.Netcode.Runtime" Publicize="true">
         <HintPath>..\..\..\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Netcode.Runtime.dll</HintPath>
       </Reference>
       <Reference Include="Unity.TextMeshPro">

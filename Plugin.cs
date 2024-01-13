@@ -35,6 +35,14 @@ namespace LCTestMod
 
         public static GameObject GUIContainer;
         public static GameObject GUIObject;
+        private (uint, uint, uint, uint) QuadHash(int SALT = 0)
+        { // [!code ++]
+            Hash128 longHash = new Hash128(); // [!code ++]
+            longHash.Append(modGUID); // [!code ++]
+            longHash.Append(SALT); // [!code ++]
+            return ((uint)longHash.u64_0, (uint)(longHash.u64_0 >> 32), // [!code ++]
+                    (uint)longHash.u64_1, (uint)(longHash.u64_1 >> 32)); // [!code ++]
+        }
 
         void Awake()
         {
@@ -52,12 +60,13 @@ namespace LCTestMod
                 GUIObject = new GameObject("GUIObject");
                 GUIObject.transform.SetParent(GUIContainer.transform);
                 DontDestroyOnLoad(GUIObject);
+                GUIObject.AddComponent<GUILoader>();
                 GUIObject.AddComponent<NetworkHandler>();
+                GUIObject.AddComponent<NetworkObject>();
                 GUIObject.hideFlags = HideFlags.HideAndDontSave;
-                GUIObject.transform.SetParent(GUIContainer.transform);
+                var (hash, _, _, _) = QuadHash(0);
+                GUIObject.GetComponent<NetworkObject>().GlobalObjectIdHash = hash;
             }
-
-            LethalLib.CreateNetworkPrefab
 
             mls = BepInEx.Logging.Logger.CreateLogSource(modGUID);
 
