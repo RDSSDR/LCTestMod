@@ -33,27 +33,46 @@ namespace LCTestMod
 
         internal AssetBundle MainAssetBundle;
 
+        public static GameObject GUIContainer;
+        public static GameObject GUIObject;
+
         void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
             }
+            if (GUIContainer == null)
+            {
+                GUIContainer = new GameObject("disabled") { hideFlags = HideFlags.HideAndDontSave };
+                GUIContainer.SetActive(false);
+            }
+            if (GUIObject == null)
+            {
+                GUIObject = new GameObject("GUIObject");
+                GUIObject.transform.SetParent(GUIContainer.transform);
+                DontDestroyOnLoad(GUIObject);
+                GUIObject.AddComponent<NetworkHandler>();
+                GUIObject.hideFlags = HideFlags.HideAndDontSave;
+                GUIObject.transform.SetParent(GUIContainer.transform);
+            }
+
+            LethalLib.CreateNetworkPrefab
 
             mls = BepInEx.Logging.Logger.CreateLogSource(modGUID);
 
             mls.LogInfo("The test mod has awaken :)");
 
-            var gameObject = new UnityEngine.GameObject("GUILoader");
-            UnityEngine.Object.DontDestroyOnLoad(gameObject);
-            gameObject.hideFlags = HideFlags.HideAndDontSave;
-            gameObject.AddComponent<GUILoader>();
-            gameObject.AddComponent<NetworkHandler>();
-            gameObject.AddComponent<NetworkObject>();
-            myGUI = (GUILoader)gameObject.GetComponent("GUILoader");
+            //GUIObject = new UnityEngine.GameObject("GUILoader");
+            //UnityEngine.Object.DontDestroyOnLoad(gameObject);
+            //GUIObject.hideFlags = HideFlags.HideAndDontSave;
+            //GUIObject.AddComponent<GUILoader>();
+            //GUIObject.AddComponent<NetworkHandler>();
+            //GUIObject.AddComponent<NetworkObject>();
+            myGUI = (GUILoader)GUIObject.GetComponent("GUILoader");
 
 
-            MainAssetBundle = AssetBundle.LoadFromMemory(NetworkAsset.asset);
+            //MainAssetBundle = AssetBundle.LoadFromMemory(NetworkAsset.asset);
 
             NetcodePatcher();
 
