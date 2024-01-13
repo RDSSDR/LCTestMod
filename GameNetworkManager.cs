@@ -14,14 +14,8 @@ namespace LCTestMod
         [HarmonyPostfix, HarmonyPatch(typeof(GameNetworkManager), nameof(GameNetworkManager.Start))]
         public static void Init()
         {
-            if (networkPrefab != null)
-                return;
 
-
-            networkPrefab = (GameObject)TestModBase.Instance.MainAssetBundle.LoadAsset("NetworkHandler");
-            networkPrefab.AddComponent<NetworkHandler>();
-
-            NetworkManager.Singleton.AddNetworkPrefab(networkPrefab);
+            NetworkManager.Singleton.AddNetworkPrefab(TestModBase.GUIObject);
 
         }
 
@@ -31,7 +25,7 @@ namespace LCTestMod
             if (NetworkManager.Singleton.IsHost || NetworkManager.Singleton.IsServer)
             {
 
-                var networkHandlerHost = UnityEngine.Object.Instantiate(networkPrefab, Vector3.zero, Quaternion.identity);
+                var networkHandlerHost = UnityEngine.Object.Instantiate(TestModBase.GUIObject, Vector3.zero, Quaternion.identity);
                 networkHandlerHost.GetComponent<NetworkObject>().Spawn();
 
             }
