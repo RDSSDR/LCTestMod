@@ -80,7 +80,6 @@ namespace LCTestMod
             GUIObject.AddComponent<NetworkObject>();
             myGUI = (GUILoader)GUIObject.GetComponent("GUILoader");
 
-
             //MainAssetBundle = AssetBundle.LoadFromMemory(NetworkAsset.asset);
 
             NetcodePatcher();
