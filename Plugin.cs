@@ -35,6 +35,7 @@ namespace LCTestMod
 
         public static GameObject GUIContainer;
         public static GameObject GUIObject;
+
         private (uint, uint, uint, uint) QuadHash(int SALT = 0)
         { // [!code ++]
             Hash128 longHash = new Hash128(); // [!code ++]
@@ -60,24 +61,23 @@ namespace LCTestMod
                 GUIObject = new GameObject("GUIObject");
                 GUIObject.transform.SetParent(GUIContainer.transform);
                 DontDestroyOnLoad(GUIObject);
-                GUIObject.AddComponent<GUILoader>();
                 GUIObject.AddComponent<NetworkHandler>();
-                GUIObject.AddComponent<NetworkObject>();
                 GUIObject.hideFlags = HideFlags.HideAndDontSave;
                 var (hash, _, _, _) = QuadHash(0);
                 GUIObject.GetComponent<NetworkObject>().GlobalObjectIdHash = hash;
+                GUIObject.transform.SetParent(GUIContainer.transform);
             }
 
             mls = BepInEx.Logging.Logger.CreateLogSource(modGUID);
 
             mls.LogInfo("The test mod has awaken :)");
 
-            //GUIObject = new UnityEngine.GameObject("GUILoader");
-            //UnityEngine.Object.DontDestroyOnLoad(gameObject);
-            //GUIObject.hideFlags = HideFlags.HideAndDontSave;
-            //GUIObject.AddComponent<GUILoader>();
-            //GUIObject.AddComponent<NetworkHandler>();
-            //GUIObject.AddComponent<NetworkObject>();
+            GUIObject = new UnityEngine.GameObject("GUILoader");
+            UnityEngine.Object.DontDestroyOnLoad(gameObject);
+            GUIObject.hideFlags = HideFlags.HideAndDontSave;
+            GUIObject.AddComponent<GUILoader>();
+            GUIObject.AddComponent<NetworkHandler>();
+            GUIObject.AddComponent<NetworkObject>();
             myGUI = (GUILoader)GUIObject.GetComponent("GUILoader");
 
 
